@@ -28,7 +28,7 @@
     function addExplanation() {
         var code = document.getElementById("code_area").value;
         var explanation = document.getElementById("explanation_area").value;
-        var modifiedCode = "// Explain what this code does in plain English: " + explanation + "\n\n" + code;
+        var modifiedCode = "Explain what this code does in plain English. Do not include code in the reply just explain what it does: " + explanation + "\n\n" + code;
         document.getElementById("result_area").value = modifiedCode;
 
         // Create a new div for the past result
