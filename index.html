@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Explanation Adder</title>
+    <style>
+        textarea {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<label for="code_area">Code:</label>
+<textarea id="code_area" rows="10" oninput="addExplanation()"></textarea>
+
+<label for="explanation_area">Explanation:</label>
+<textarea id="explanation_area" rows="5" oninput="addExplanation()"></textarea>
+
+<button onclick="addExplanation()">Add Explanation</button>
+
+<label for="result_area">Result:</label>
+<textarea id="result_area" rows="10"></textarea>
+
+<script>
+    function addExplanation() {
+        var code = document.getElementById("code_area").value;
+        var explanation = document.getElementById("explanation_area").value;
+        var modifiedCode = "Explain what this code does in plain English, please don't include the code in the reply: " + explanation + "\n\n" + code;
+        document.getElementById("result_area").value = modifiedCode;
+    }
+</script>
+</body>
+</html>
+
