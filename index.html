@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="UTF-8">
 <head>
     <title>Code Explanation Adder</title>
     <style>
@@ -7,6 +7,7 @@
             width: 100%;
             margin-bottom: 20px;
         }
+
     </style>
 </head>
 <body>
@@ -21,14 +22,27 @@
 <label for="result_area">Result:</label>
 <textarea id="result_area" rows="10"></textarea>
 
+<div id="past_results"></div>
+
 <script>
     function addExplanation() {
         var code = document.getElementById("code_area").value;
         var explanation = document.getElementById("explanation_area").value;
-        var modifiedCode = "Explain what this code does in plain English, please don't include the code in the reply: " + explanation + "\n\n" + code;
+        var modifiedCode = "// Explain what this code does in plain English: " + explanation + "\n\n" + code;
         document.getElementById("result_area").value = modifiedCode;
+
+        // Create a new div for the past result
+        var resultDiv = document.createElement("div");
+        resultDiv.className = "past-result";
+
+        // Add the date, time, and result text
+        var now = new Date();
+        resultDiv.textContent = now.toString() + ":\n" + modifiedCode;
+
+        // Add the new div to the past results at the top
+        var pastResults = document.getElementById("past_results");
+        pastResults.prepend(resultDiv);
     }
 </script>
 </body>
 </html>
-
