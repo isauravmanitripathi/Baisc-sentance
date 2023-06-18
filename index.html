@@ -7,17 +7,17 @@
             width: 100%;
             margin-bottom: 20px;
         }
+
     </style>
 </head>
 <body>
 <label for="code_area">Code:</label>
-<textarea id="code_area" rows="10"></textarea>
+<textarea id="code_area" rows="10" oninput="addExplanation()"></textarea>
 
 <label for="explanation_area">Explanation:</label>
-<textarea id="explanation_area" rows="5"></textarea>
+<textarea id="explanation_area" rows="5" oninput="addExplanation()"></textarea>
 
-<button onclick="addExplanation(1)">Add Code Explanation</button>
-<button onclick="addExplanation(2)">Add Rewrite Request</button>
+<button onclick="addExplanation()">Add Explanation</button>
 
 <label for="result_area">Result:</label>
 <textarea id="result_area" rows="10"></textarea>
@@ -25,17 +25,10 @@
 <div id="past_results"></div>
 
 <script>
-    function addExplanation(option) {
+    function addExplanation() {
         var code = document.getElementById("code_area").value;
         var explanation = document.getElementById("explanation_area").value;
-        var modifiedCode;
-
-        if(option === 1) {
-            modifiedCode = "Explain what this code does in plain English. Do not include code in the reply just explain what it does: " + explanation + "\n\n" + code;
-        } else if(option === 2) {
-            modifiedCode = "Rewrite this text and make sure each sentences are less than 500 characters:\n\n" + explanation + "\n\n" + code;
-        }
-
+        var modifiedCode = "Explain what this code does in plain English. Do not include code in the reply just explain what it does: " + explanation + "\n\n" + code;
         document.getElementById("result_area").value = modifiedCode;
 
         // Create a new div for the past result
