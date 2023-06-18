@@ -10,28 +10,45 @@
     </style>
 </head>
 <body>
+<label for="code_area">Code:</label>
+<textarea id="code_area" rows="10"></textarea>
 
-<button onclick="activateFields('Explain what this code does in plain English. Do not include code in the reply just explain what it does: ')">Add Code Explanation Fields</button>
-<button onclick="activateFields('Rewrite this text and make sure each sentences are less than 500 characters: ')">Add Rewrite Request Fields</button>
+<label for="explanation_area">Explanation:</label>
+<textarea id="explanation_area" rows="5"></textarea>
 
-<label id="field_label"></label>
-<textarea id="input_field" rows="10"></textarea>
+<button onclick="addExplanation(1)">Add Code Explanation</button>
+<button onclick="addExplanation(2)">Add Rewrite Request</button>
+
+<label for="result_area">Result:</label>
+<textarea id="result_area" rows="10"></textarea>
+
+<div id="past_results"></div>
 
 <script>
-    var currentPrependText = '';
+    function addExplanation(option) {
+        var code = document.getElementById("code_area").value;
+        var explanation = document.getElementById("explanation_area").value;
+        var modifiedCode;
 
-    function activateFields(textToAdd) {
-        currentPrependText = textToAdd;
+        if(option === 1) {
+            modifiedCode = "Explain what this code does in plain English. Do not include code in the reply just explain what it does: " + explanation + "\n\n" + code;
+        } else if(option === 2) {
+            modifiedCode = "Rewrite this text and make sure each sentences are less than 500 characters:\n\n" + explanation + "\n\n" + code;
+        }
 
-        var fieldLabel = document.getElementById('field_label');
-        var inputField = document.getElementById('input_field');
+        document.getElementById("result_area").value = modifiedCode;
 
-        fieldLabel.textContent = textToAdd;
-        inputField.value = '';
-        inputField.oninput = function() {
-            this.value = currentPrependText + this.value;
-            this.oninput = null;
-        };
+        // Create a new div for the past result
+        var resultDiv = document.createElement("div");
+        resultDiv.className = "past-result";
+
+        // Add the date, time, and result text
+        var now = new Date();
+        resultDiv.textContent = now.toString() + ":\n" + modifiedCode;
+
+        // Add the new div to the past results at the top
+        var pastResults = document.getElementById("past_results");
+        pastResults.prepend(resultDiv);
     }
 </script>
 </body>
