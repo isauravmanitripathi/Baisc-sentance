@@ -11,27 +11,27 @@
 </head>
 <body>
 
-<button onclick="addFields('Explain what this code does in plain English. Do not include code in the reply just explain what it does: ')">Add Code Explanation Fields</button>
-<button onclick="addFields('Rewrite this text and make sure each sentences are less than 500 characters: ')">Add Rewrite Request Fields</button>
+<button onclick="activateFields('Explain what this code does in plain English. Do not include code in the reply just explain what it does: ')">Add Code Explanation Fields</button>
+<button onclick="activateFields('Rewrite this text and make sure each sentences are less than 500 characters: ')">Add Rewrite Request Fields</button>
 
-<div id="fields_container"></div>
+<label id="field_label"></label>
+<textarea id="input_field" rows="10"></textarea>
 
 <script>
-    function addFields(textToAdd) {
-        var container = document.getElementById("fields_container");
+    var currentPrependText = '';
 
-        var newFieldLabel = document.createElement("label");
-        newFieldLabel.textContent = textToAdd;
-        
-        var newTextArea = document.createElement("textarea");
-        newTextArea.rows = "10";
-        newTextArea.oninput = function() {
-            this.value = textToAdd + this.value;
+    function activateFields(textToAdd) {
+        currentPrependText = textToAdd;
+
+        var fieldLabel = document.getElementById('field_label');
+        var inputField = document.getElementById('input_field');
+
+        fieldLabel.textContent = textToAdd;
+        inputField.value = '';
+        inputField.oninput = function() {
+            this.value = currentPrependText + this.value;
             this.oninput = null;
         };
-
-        container.appendChild(newFieldLabel);
-        container.appendChild(newTextArea);
     }
 </script>
 </body>
