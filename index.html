@@ -11,79 +11,27 @@
 </head>
 <body>
 
-<button onclick="addFields(1)">Add Code Explanation Fields</button>
-<button onclick="addFields(2)">Add Rewrite Request Fields</button>
+<button onclick="addFields('Explain what this code does in plain English. Do not include code in the reply just explain what it does: ')">Add Code Explanation Fields</button>
+<button onclick="addFields('Rewrite this text and make sure each sentences are less than 500 characters: ')">Add Rewrite Request Fields</button>
 
 <div id="fields_container"></div>
 
 <script>
-    function addExplanation(option, code_area, explanation_area, result_area, past_results) {
-        var code = document.getElementById(code_area).value;
-        var explanation = document.getElementById(explanation_area).value;
-        var modifiedCode;
-
-        if(option === 1) {
-            modifiedCode = "Explain what this code does in plain English. Do not include code in the reply just explain what it does: " + explanation + "\n\n" + code;
-        } else if(option === 2) {
-            modifiedCode = "Rewrite this text and make sure each sentences are less than 500 characters:\n\n" + explanation + "\n\n" + code;
-        }
-
-        document.getElementById(result_area).value = modifiedCode;
-
-        // Create a new div for the past result
-        var resultDiv = document.createElement("div");
-        resultDiv.className = "past-result";
-
-        // Add the date, time, and result text
-        var now = new Date();
-        resultDiv.textContent = now.toString() + ":\n" + modifiedCode;
-
-        // Add the new div to the past results at the top
-        var pastResultsElement = document.getElementById(past_results);
-        pastResultsElement.prepend(resultDiv);
-    }
-
-    function addFields(option) {
+    function addFields(textToAdd) {
         var container = document.getElementById("fields_container");
 
-        // Generate a unique ID based on the current time
-        var idBase = new Date().getTime();
-
-        var codeLabel = document.createElement("label");
-        codeLabel.textContent = "Code:";
-        var codeArea = document.createElement("textarea");
-        codeArea.id = "code_area_" + idBase;
-        codeArea.rows = "10";
+        var newFieldLabel = document.createElement("label");
+        newFieldLabel.textContent = textToAdd;
         
-        var explanationLabel = document.createElement("label");
-        explanationLabel.textContent = "Explanation:";
-        var explanationArea = document.createElement("textarea");
-        explanationArea.id = "explanation_area_" + idBase;
-        explanationArea.rows = "5";
-        
-        var submitButton = document.createElement("button");
-        submitButton.textContent = option === 1 ? "Add Code Explanation" : "Add Rewrite Request";
-        submitButton.onclick = function() {
-            addExplanation(option, codeArea.id, explanationArea.id, resultArea.id, pastResults.id);
+        var newTextArea = document.createElement("textarea");
+        newTextArea.rows = "10";
+        newTextArea.oninput = function() {
+            this.value = textToAdd + this.value;
+            this.oninput = null;
         };
 
-        var resultLabel = document.createElement("label");
-        resultLabel.textContent = "Result:";
-        var resultArea = document.createElement("textarea");
-        resultArea.id = "result_area_" + idBase;
-        resultArea.rows = "10";
-
-        var pastResults = document.createElement("div");
-        pastResults.id = "past_results_" + idBase;
-
-        container.appendChild(codeLabel);
-        container.appendChild(codeArea);
-        container.appendChild(explanationLabel);
-        container.appendChild(explanationArea);
-        container.appendChild(submitButton);
-        container.appendChild(resultLabel);
-        container.appendChild(resultArea);
-        container.appendChild(pastResults);
+        container.appendChild(newFieldLabel);
+        container.appendChild(newTextArea);
     }
 </script>
 </body>
