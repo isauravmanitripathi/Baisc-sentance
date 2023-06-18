@@ -11,7 +11,8 @@
 </head>
 <body>
 
-<button onclick="addFields()">Add Fields</button>
+<button onclick="addFields(1)">Add Code Explanation Fields</button>
+<button onclick="addFields(2)">Add Rewrite Request Fields</button>
 
 <div id="fields_container"></div>
 
@@ -42,7 +43,7 @@
         pastResultsElement.prepend(resultDiv);
     }
 
-    function addFields() {
+    function addFields(option) {
         var container = document.getElementById("fields_container");
 
         // Generate a unique ID based on the current time
@@ -60,16 +61,10 @@
         explanationArea.id = "explanation_area_" + idBase;
         explanationArea.rows = "5";
         
-        var codeButton = document.createElement("button");
-        codeButton.textContent = "Add Code Explanation";
-        codeButton.onclick = function() {
-            addExplanation(1, codeArea.id, explanationArea.id, resultArea.id, pastResults.id);
-        };
-
-        var rewriteButton = document.createElement("button");
-        rewriteButton.textContent = "Add Rewrite Request";
-        rewriteButton.onclick = function() {
-            addExplanation(2, codeArea.id, explanationArea.id, resultArea.id, pastResults.id);
+        var submitButton = document.createElement("button");
+        submitButton.textContent = option === 1 ? "Add Code Explanation" : "Add Rewrite Request";
+        submitButton.onclick = function() {
+            addExplanation(option, codeArea.id, explanationArea.id, resultArea.id, pastResults.id);
         };
 
         var resultLabel = document.createElement("label");
@@ -85,8 +80,7 @@
         container.appendChild(codeArea);
         container.appendChild(explanationLabel);
         container.appendChild(explanationArea);
-        container.appendChild(codeButton);
-        container.appendChild(rewriteButton);
+        container.appendChild(submitButton);
         container.appendChild(resultLabel);
         container.appendChild(resultArea);
         container.appendChild(pastResults);
